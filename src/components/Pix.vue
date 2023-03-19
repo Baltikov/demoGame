@@ -68,7 +68,7 @@ export default {
       yellowBalloons.push(this.createBaloon())
     }
 
-    this.app.stage.addChild(sprite, blueBaloon, blueBaloon2, blueBaloonSm, pinkBalloons[0], pinkBalloons[1], pinkBalloons[2], yellowBalloons[0], yellowBalloons[1], yellowBalloons[2], yellowBalloons[3])
+    this.app.stage.addChild(sprite, yellowBalloons[0], yellowBalloons[1], yellowBalloons[2], yellowBalloons[3], blueBaloon, blueBaloon2, blueBaloonSm, pinkBalloons[0], pinkBalloons[1], pinkBalloons[2])
     this.app.stage.addChild(headerCloud, headerCounter, this.counterText, this.recordText)
 
     // ticker
