@@ -29,7 +29,7 @@ export default {
       view: canvas
     })
 
-    // loader  загрузка ресурсы
+    //  add assets text-counter
     this.counterText = new PIXI.Text('0', { fontSize: 24, fill: 0x121212 })
     this.counterText.x = 152
     this.counterText.y = 68
@@ -42,31 +42,37 @@ export default {
 
     this.recordText.text = localStorage.getItem('record') || '0'
 
-    // add sprite in app
+    //  add assets backgound, cloud
     const sprite = PIXI.Sprite.from('/back.png')
+
     const headerCloud = PIXI.Sprite.from('/header-cloud.png')
     headerCloud.y = 10
+
     const headerCounter = PIXI.Sprite.from('/header-counter.png')
     headerCounter.x = 20
     headerCounter.y = 50
 
+    //  add assets sprite ballons
     const blueBaloon = PIXI.Sprite.from('/blue-baloon.png')
     const blueBaloon2 = PIXI.Sprite.from('/blue-baloon.png')
     const blueBaloonSm = PIXI.Sprite.from('/blue-baloon-sm.png')
 
-    const pingBaloon = PIXI.Sprite.from('/ping-baloon.png')
-    const pingBaloon2 = PIXI.Sprite.from('/ping-baloon.png')
-    const pingBaloon3 = PIXI.Sprite.from('/ping-baloon.png')
+    const pinkBalloons = []
+    for (let i = 0; i < 3; i++) {
+      pinkBalloons.push(PIXI.Sprite.from('/ping-baloon.png'))
+      this.app.stage.addChild(pinkBalloons[i])
+    }
 
     const yellowBalloons = []
     for (let i = 0; i < 4; i++) {
       yellowBalloons.push(this.createBaloon())
     }
 
-    this.app.stage.addChild(sprite, blueBaloon, blueBaloon2, blueBaloonSm, pingBaloon, pingBaloon2, pingBaloon3, yellowBalloons[0], yellowBalloons[1], yellowBalloons[2], yellowBalloons[3])
+    this.app.stage.addChild(sprite, blueBaloon, blueBaloon2, blueBaloonSm, pinkBalloons[0], pinkBalloons[1], pinkBalloons[2], yellowBalloons[0], yellowBalloons[1], yellowBalloons[2], yellowBalloons[3])
     this.app.stage.addChild(headerCloud, headerCounter, this.counterText, this.recordText)
 
     // ticker
+    // TO DO обернуть в функцию, на текущий момент не расширяемо
 
     let elapsed = 0.0
     this.app.ticker.add((delta) => {
@@ -93,14 +99,14 @@ export default {
       blueBaloon2.x = 180
       blueBaloon2.y = 833 - Math.tan(elapsed / 100) * 715
 
-      pingBaloon.x = 260
-      pingBaloon.y = 200 - Math.tan(elapsed / 120) * 515
+      pinkBalloons[0].x = 260
+      pinkBalloons[0].y = 200 - Math.tan(elapsed / 120) * 515
 
-      pingBaloon2.x = 45
-      pingBaloon2.y = 700 - Math.tan(elapsed / 144) * 815
+      pinkBalloons[1].x = 45
+      pinkBalloons[1].y = 700 - Math.tan(elapsed / 144) * 815
 
-      pingBaloon3.x = 115
-      pingBaloon3.y = 440 - Math.tan(elapsed / 144) * 515
+      pinkBalloons[2].x = 115
+      pinkBalloons[2].y = 440 - Math.tan(elapsed / 144) * 515
     })
   },
   methods: {
@@ -116,7 +122,7 @@ export default {
       burstBaloon.interactive = false
       setTimeout(() => {
         burstBaloon.visible = false
-      }, 500)
+      }, 700)
       setTimeout(() => {
         burstBaloon.interactive = true
         burstBaloon.stop()
@@ -124,6 +130,7 @@ export default {
         burstBaloon.visible = true
       }, 2000)
     },
+
     createBaloon () {
       const burstBaloon = new AnimatedSprite(this.loadBaloonsSprite())
       burstBaloon.animationSpeed = 0.2
