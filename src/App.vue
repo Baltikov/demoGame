@@ -1,5 +1,5 @@
 <template>
-  <PixJs/>
+  <PixJs id="app"/>
 </template>
 
 <script>
